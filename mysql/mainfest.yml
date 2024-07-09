@@ -34,7 +34,6 @@ spec:
         project: expense
         tier: db 
     spec:
-      terminationGracePeriodSeconds: 10
       containers:
       - name: mysql
         image: joindevops/mysql:v1.0
