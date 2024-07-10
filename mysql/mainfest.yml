@@ -1,3 +1,34 @@
+kind: Service
+apiVersion: v1
+metadata:
+ name: mysql-headless
+ namespace: expense
+spec:
+ clusterIp: None # this is called headless
+ selector:
+  component: mysql
+  project: expense
+  tier: db
+ ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306 
+---
+kind: Service
+apiVersion: v1
+metadata:
+ name: mysql
+ namespace: expense
+spec:
+ selector:
+  component: mysql
+  project: expense
+  tier: db
+ ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306 
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -24,7 +55,7 @@ spec:
       component: mysql
       project: expense
       tier: db 
-  serviceName: "nginx"
+  serviceName: "mysql-headless" #headless metadata name
   replicas: 3 # by default is 1
   template:
     metadata:
@@ -50,4 +81,7 @@ spec:
       resources:
         requests:
           storage: 1G
+
+
+
 
