@@ -39,7 +39,7 @@ spec:
         image: joindevops/mysql:v1.0
         imagePullPolicy: Always
         volumeMounts:
-        - name: mysql
+        - name: mysql 
           mountPath: /var/lib/mysql
   volumeClaimTemplates:
   - metadata:
