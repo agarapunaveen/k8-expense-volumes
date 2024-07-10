@@ -37,14 +37,17 @@ spec:
       containers:
       - name: mysql
         image: joindevops/mysql:v1.0
-        ports:
-        - containerPort: 80
-          name: web
+        imagePullPolicy: Always
         volumeMounts:
         - name: mql
           mountPath: /var/lib/mysql
-      volumes:
-        - name: mysql
-          persistentVolumeClaim:
-            claimName: mysql # pvc medatadata name
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "ebs-expense"
+      resources:
+        requests:
+          storage: 1G
 
